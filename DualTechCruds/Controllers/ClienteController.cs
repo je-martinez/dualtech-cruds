@@ -54,20 +54,40 @@ namespace DualTechCruds.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("get-by-id/{id}")]
-        public async Task<IHttpActionResult> GetById(int id)
+        public async Task<IHttpActionResult> GetById(int id, DateTime? fechaTasa)
         {
             using (DualTechCrudsBDEntities context = new DualTechCrudsBDEntities())
             {
                 try
                 {
+                    decimal totalLPS = 0;
                     Cliente findById = await context.Cliente.Where(item => item.Id == id).FirstOrDefaultAsync();
-                    ResponseResult response = new ResponseResult()
+                    if (fechaTasa != null)
                     {
-                        success = true,
-                        errorMsg = null,
-                        data = new ClienteDTO(findById)
-                    };
-                    return Ok(response);
+                        Poliza poliza = context.Poliza.Where(item => item.ClienteId == findById.Id).FirstOrDefault();
+                        TasaCambio tasaCambio = context.TasaCambio.Where(item => item.FechaInicio == fechaTasa).FirstOrDefault();
+                        if (findById != null && tasaCambio != null && poliza != null)
+                        {
+                            totalLPS = (decimal)poliza.SumaAsegurada * (decimal)tasaCambio.Tasa;
+                        }
+                        ResponseResult response = new ResponseResult()
+                        {
+                            success = true,
+                            errorMsg = null,
+                            data = new ClientePlusTotalDTO(findById, totalLPS, poliza)
+                        };
+                        return Ok(response);
+                    }
+                    else
+                    {
+                        ResponseResult response = new ResponseResult()
+                        {
+                            success = true,
+                            errorMsg = null,
+                            data = new ClienteDTO(findById)
+                        };
+                        return Ok(response);
+                    }
                 }
                 catch (Exception)
                 {
