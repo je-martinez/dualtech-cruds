@@ -145,11 +145,26 @@ namespace DualTechCruds.Controllers
                         }
                         else
                         {
+                            List<TasaCambio> insertList = new List<TasaCambio>();
+                            tasasACrear.ForEach(item =>
+                            {
+                                TasaCambio row = new TasaCambio()
+                                {
+                                    Tasa = item.Tasa,
+                                    FechaInicio = item.FechaInicio,
+                                    FechaFinal = item.FechaFinal
+                                };
+                                insertList.Add(row);
+                            });
+                            context.TasaCambio.AddRange(insertList);
+                            await context.SaveChangesAsync();
+                            transaction.Commit();
+                            List<TasaCambioDTO> responseList = insertList.Select(item => new TasaCambioDTO(item)).ToList();
                             ResponseResult response = new ResponseResult()
                             {
-                                success = false,
-                                errorMsg = "Se han encontrado errores en la lista enviada",
-                                data = tasasErrors
+                                success = true,
+                                errorMsg = null,
+                                data = responseList
                             };
                             return Content(HttpStatusCode.BadRequest, response);
                         }
@@ -197,11 +212,11 @@ namespace DualTechCruds.Controllers
                         {
                             ResponseResult response = new ResponseResult()
                             {
-                                success = false,
+                                success = true,
                                 errorMsg = "Se han encontrado errores en la lista enviada",
                                 data = tasasErrors
                             };
-                            return Content(HttpStatusCode.BadRequest, response);
+                            return Ok(response);
                         }
                     }
                     catch (Exception ex)
@@ -244,7 +259,8 @@ namespace DualTechCruds.Controllers
                         && datesInverted == false 
                         && (isFechaInicialMasReciente == true || item.FechaFinal != null)
                         && item.Tasa > 0)
-                        {
+                        {   
+                            item.FechaFinal = item.FechaFinal == null ? DateTime.Now : item.FechaFinal;
                             tasasConValidaciones.Add(new TasaCambioDTOWithValidation(item, false, null));
                         }
                         else

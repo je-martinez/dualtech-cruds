@@ -82,7 +82,6 @@ C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\bin\System.Web.W
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\bin\System.Web.WebPages.Razor.xml
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\bin\Antlr3.Runtime.pdb
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.csprojAssemblyReference.cache
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.csproj.CoreCompileInputs.cache
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.csproj.CopyComplete
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.dll
