@@ -74,7 +74,7 @@ namespace DualTechCruds.Controllers
                         {
                             success = true,
                             errorMsg = null,
-                            data = new ClientePlusTotalDTO(findById, totalLPS, poliza)
+                            data = new ClientePlusTotalDTO(findById, totalLPS, poliza, tasaCambio)
                         };
                         return Ok(response);
                     }
@@ -96,6 +96,38 @@ namespace DualTechCruds.Controllers
                         success = false,
                         errorMsg = "Ha ocurrido un error tratando de encontrar al cliente",
                         data = id 
+                    };
+                    return Content(HttpStatusCode.BadRequest, response);
+                }
+            }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("get-by-id/{id}")]
+        public async Task<IHttpActionResult> GetByIdXTasa(int id)
+        {
+            using (DualTechCrudsBDEntities context = new DualTechCrudsBDEntities())
+            {
+                try
+                {
+                    decimal totalLPS = 0;
+                    Cliente findById = await context.Cliente.Where(item => item.Id == id).FirstOrDefaultAsync();     
+                    ResponseResult response = new ResponseResult()
+                    {
+                        success = true,
+                        errorMsg = null,
+                        data = new ClienteDTO(findById)
+                    };
+                    return Ok(response);
+                }
+                catch (Exception)
+                {
+                    ResponseResult response = new ResponseResult()
+                    {
+                        success = false,
+                        errorMsg = "Ha ocurrido un error tratando de encontrar al cliente",
+                        data = id
                     };
                     return Content(HttpStatusCode.BadRequest, response);
                 }

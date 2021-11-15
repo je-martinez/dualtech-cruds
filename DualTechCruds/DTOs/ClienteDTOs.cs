@@ -31,6 +31,7 @@ namespace DualTechCruds.DTOs
         public string Nombre { get; set; }
         public decimal TotalLPS { get; set; }
         public PolizaDTO Poliza { get; set; }
+        public TasaCambioDTO Tasa { get; set; }
 
         public ClientePlusTotalDTO()
         {
@@ -39,12 +40,13 @@ namespace DualTechCruds.DTOs
             this.TotalLPS = 0;
         }
 
-        public ClientePlusTotalDTO(Cliente cliente, decimal total, Poliza poliza)
+        public ClientePlusTotalDTO(Cliente cliente, decimal total, Poliza poliza, TasaCambio tasa)
         {
             this.Id = cliente.Id;
             this.Nombre = cliente.Nombre;
             this.TotalLPS = total;
             this.Poliza = new PolizaDTO(poliza);
+            this.Tasa = new TasaCambioDTO(tasa);
         }
 
     }
