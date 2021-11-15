@@ -248,7 +248,7 @@ namespace DualTechCruds.Controllers
                     {
                         TasaCambioDTO find = tasas.Where(itemb => itemb.FechaInicio == item.FechaInicio && item.FechaFinal == itemb.FechaFinal && item.Tasa != itemb.Tasa).FirstOrDefault();
                         TasaCambio findDB = tasasDB.Where(itemb => itemb.FechaInicio == item.FechaInicio && item.FechaFinal == itemb.FechaFinal).FirstOrDefault();
-                        TasaCambioDTOWithValidation between = tasasConValidaciones.Where(itemb => item.FechaInicio >= itemb.FechaInicio && item.FechaFinal <= item.FechaFinal).FirstOrDefault();
+                        TasaCambioDTOWithValidation between = tasasConValidaciones.Where(itemb => item.FechaInicio >= itemb.FechaInicio && item.FechaFinal <= itemb.FechaFinal).FirstOrDefault();
                         TasaCambio betweenDB = tasasDB.Where(itemb => item.FechaInicio >= itemb.FechaInicio && item.FechaFinal <= (itemb.FechaFinal == null ? DateTime.Now:itemb.FechaFinal)).FirstOrDefault();
                         bool datesInverted = item.FechaInicio > item.FechaFinal ? true : false;
                         bool isFechaInicialMasReciente = elementoFechaInicialMasReciente == item ? true : false;
@@ -259,7 +259,7 @@ namespace DualTechCruds.Controllers
                         && datesInverted == false 
                         && (isFechaInicialMasReciente == true || item.FechaFinal != null)
                         && item.Tasa > 0)
-                        {   
+                        {
                             item.FechaFinal = item.FechaFinal == null ? DateTime.Now : item.FechaFinal;
                             tasasConValidaciones.Add(new TasaCambioDTOWithValidation(item, false, null));
                         }
