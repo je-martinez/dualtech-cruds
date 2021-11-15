@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DualTechCrudsBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Poliza" Relationship="Self.FK_Cliente_Id_Poliza_ClienteId" FromRole="Cliente" ToRole="Poliza" />
+  </EntityType>
+  <EntityType Name="Poliza">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClienteId" Type="Int32" />
+    <Property Name="Moneda" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+    <Property Name="SumaAsegurada" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Id_Poliza_ClienteId" FromRole="Poliza" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="TasaCambio">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tasa" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="FechaInicio" Type="DateTime" Precision="0" />
+    <Property Name="FechaFinal" Type="DateTime" Precision="0" />
+  </EntityType>
+  <Association Name="FK_Cliente_Id_Poliza_ClienteId">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Poliza" Type="Self.Poliza" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Poliza">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DualTechCrudsBDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Poliza" EntityType="Self.Poliza" />
+    <EntitySet Name="TasaCambio" EntityType="Self.TasaCambio" />
+    <AssociationSet Name="FK_Cliente_Id_Poliza_ClienteId" Association="Self.FK_Cliente_Id_Poliza_ClienteId">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Poliza" EntitySet="Poliza" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
