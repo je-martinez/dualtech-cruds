@@ -86,3 +86,4 @@ C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTe
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.csproj.CopyComplete
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.dll
 C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.pdb
+C:\Users\CIT - Developer\Documents\dualtech-cruds\DualTechCruds\obj\Debug\DualTechCruds.csprojAssemblyReference.cache
